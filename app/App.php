@@ -18,7 +18,7 @@ class App
         $this->router->set404(function() {
             header('HTTP/1.1 404 Not Found');
             // ... do something special here
-            echo 'iam here';
+            // echo 'iam here';
         });
         
         // Verifikasi Auth
@@ -28,8 +28,23 @@ class App
         });
         
 
-        // 
+        // frontend
         $this->router->get('/', '\app\controller\frontend\HomeController@index');
+
+        // admin area
+        
+        
+        $this->router->before(
+            'GET|POST|PUT|DELETE|PATCH', 
+            '/network/.*', 
+            '\app\controller\network\AuthenticationController@check');
+
+        
+        $this->router->mount('/network', function() {
+
+            $this->router->get('/', '\app\controller\network\DashboardController@index');
+            $this->router->get('/test', '\app\controller\network\DashboardController@test');
+        });
 
         $this->router->run();
     }
