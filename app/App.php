@@ -1,10 +1,9 @@
 <?php
+namespace app;
 defined('BASEPATH') or exit ('No direct access'); 
 /*
 Main class App
 */
-include './vendor/autoload.php';
-
 class App
 {
     public $router;
@@ -24,24 +23,15 @@ class App
         
         // Verifikasi Auth
         $this->router->before('GET|POST','(.*)', function(){
-            //echo 'iam here not auth';
+            // echo 'iam here not auth';
             // require $srvRoot . '/auth-stack.php';
         });
         
-        // Dashboard
-        $this->router->get('/', function() {
-            //echo 'iam here dashboard';
-            require './app/DashboardController.php';
-            $controller = new DashboardController();
-            $controller->index();
-            // $this->includeWithAssets($srvRoot . 'dashboard.php');
-        });
+
+        // 
+        $this->router->get('/', '\app\controller\frontend\HomeController@index');
 
         $this->router->run();
-    }
-
-    public function loadView(){
-        echo 'i am view loader';
     }
     
 }

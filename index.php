@@ -1,7 +1,8 @@
 <?php
 define('BASEPATH',TRUE);
 
-require __DIR__.'/app/App.php';
-$app = new App;
-$app->run();
+require './app/autoload.php';
+require './vendor/autoload.php';
 
+$app = new \app\App;
+$app->run();
